@@ -48,7 +48,7 @@ export class OpenAIService extends AxiosService {
 
     const data = result.data;
 
-    if (!data || !data.choices || !data.choices.message) {
+    if (!data || !data.choices || data.choices.length < 1) {
       return { error: 'Invalid response data' };
     }
 
