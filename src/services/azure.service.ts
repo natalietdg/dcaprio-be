@@ -3,7 +3,7 @@ import { DetectImageResponse } from '@azure/cognitiveservices-customvision-predi
 import { ApiKeyCredentials } from '@azure/ms-rest-js';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AzureOpenAI } from 'openai';
+
 import {
   AltTextImage,
   ChatCompletionMessageParam,
@@ -14,7 +14,6 @@ import { OpenAIService } from './openai.service';
 @Injectable()
 export class AzureService {
   private readonly customVisionPredictor: PredictionAPIClient;
-  private readonly openAIPredictor: AzureOpenAI;
 
   constructor(
     private config: ConfigService,
@@ -24,13 +23,6 @@ export class AzureService {
       inHeader: {
         'Prediction-key': this.config.get('CUSTOM_VISION_PREDICTION_KEY'),
       },
-    });
-
-    this.openAIPredictor = new AzureOpenAI({
-      endpoint: this.config.get('OPENAI_API'),
-      apiKey: this.config.get('OPENAI_KEY'),
-      apiVersion: this.config.get('OPENAI_API_VERSION'),
-      deployment: this.config.get('OPENAI_DEPLOYMENT_NAME'),
     });
 
     this.customVisionPredictor = new PredictionAPIClient(
