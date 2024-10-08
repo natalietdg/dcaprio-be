@@ -25,7 +25,6 @@ export class AxiosService {
     body: T | ApiBody,
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse> {
-
     return lastValueFrom(this.httpService.put(url, body, config));
   }
 }

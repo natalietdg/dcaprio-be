@@ -53,9 +53,10 @@ export class OpenAIService extends AxiosService {
     }
 
     return {
-      result: data.choices[0].message.content,
-      created: new Date(data.created * 1000),
-      id: data.id,
+      result: data.choices[0].message.content
+        ?.replace(/^Alt text:\s*/, '')
+        ?.replace(/Tags:\s*.*$/g, ''),
+      altTextCreationId: data.id,
     };
   }
 }

@@ -73,7 +73,7 @@ export class AzureService {
           },
           {
             type: 'text',
-            text: `Please write an alt text for this. The domain is hearing healthcare, hearing aids, hearing devices, hearing instruments, hearing diagnosis. Remove uncertain language such as "appears to be", "looks like", "seems", and etc. from the alt text. It does not need to be too descriptive, just highlight the main points. The tags are ${predictions.join(', ')}`,
+            text: `Write a clear alt text related to hearing healthcare, hearing aids, hearing devices, hearing instruments, and hearing diagnosis. Avoid uncertain language such as 'appears to be,' 'seems,' etc. Focus on the main points without excessive detail. The tags to include are: ${predictions.join(', ')}.`,
           },
         ],
       },

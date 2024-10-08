@@ -38,9 +38,14 @@ export class AzureController {
           (await this.customVisionTrainingServive.retrieveImageUriWithPredictionId(
             detectedProductsResults.id,
           )) as ImageUri;
+
+        const { id, ...detectedProductsResultsWithoutId } =
+          detectedProductsResults;
+
         return {
           altText: altTextResult,
-          ...detectedProductsResults,
+          ...detectedProductsResultsWithoutId,
+          tagPredictionResultId: id,
           imageUri,
         };
       }),

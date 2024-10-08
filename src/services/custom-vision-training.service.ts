@@ -58,7 +58,6 @@ export class CustomVisionTrainingService extends AxiosService {
       (result) => result.id === predictionId,
     );
 
-    console.log({ image });
     return {
       resizedImageUri: image[0].resizedImageUri,
       thumbnailUri: image[0].thumbnailUri,

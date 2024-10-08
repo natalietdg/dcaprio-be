@@ -5,7 +5,7 @@ export interface AltTextPredictionReq {
 export type AltTextImage = Express.Multer.File;
 
 export interface AltTextPredictedResult {
-  id: string;
+  tagPredictionResultId: string;
   created: Date;
   predictions: string[];
   altText: ChatCompletionResult | { error: string };
@@ -14,8 +14,7 @@ export interface AltTextPredictedResult {
 
 export interface ChatCompletionResult {
   result: string;
-  created: Date;
-  id: string;
+  altTextCreationId: string;
 }
 
 export enum Role {
