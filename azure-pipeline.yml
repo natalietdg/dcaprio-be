@@ -1,0 +1,41 @@
+trigger:
+  branches:
+    include:
+      - master
+
+variables:
+  - group: dcaprio
+
+pool:
+  vmImage: $(VM_IMAGE_NAME)
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: $(NODE_VERSION)
+    displayName: 'Install Node.js'
+
+  - script: |
+      npm install
+      npm run build
+    displayName: 'Install dependencies and build NestJS app'
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '.'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      replaceExistingArchive: true
+    displayName: 'Archive files'
+
+  - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    artifact: drop
+    displayName: 'Publish artifact'
+
+  - task: AzureWebApp@1
+    inputs:
+      azureSubscription: $(AzureSubscription)
+      appName: $(backendAppName)
+      package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    displayName: 'Deploy to Azure Web App'
