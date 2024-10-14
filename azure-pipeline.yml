@@ -29,13 +29,15 @@ steps:
       replaceExistingArchive: true
     displayName: 'Archive files'
 
-  - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-    artifact: drop
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      artifactName: 'drop'
     displayName: 'Publish artifact'
 
-  - task: AzureWebApp@1
+  - task: AzureRmWebAppDeployment@4
     inputs:
       azureSubscription: $(AzureSubscription)
-      appName: $(backendAppName)
-      package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      WebAppName: $(BackendAppName)
+      Package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     displayName: 'Deploy to Azure Web App'
