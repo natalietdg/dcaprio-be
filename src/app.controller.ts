@@ -9,4 +9,9 @@ export class AppController {
   async verifyConnection() {
     return 'DCaprio Backend connection success!';
   }
+
+  @Get('/test')
+  async testConnection() {
+    return 'deleted ecosystem.config';
+  }
 }
