@@ -9,9 +9,4 @@ export class AppController {
   async verifyConnection() {
     return 'DCaprio Backend connection success!';
   }
-
-  @Get('/test')
-  async test() {
-    return 'deployment success!';
-  }
 }
